@@ -18,14 +18,19 @@
       <div class="colunas col-10 botao"><a href="novidades">VEJA TODAS AS NOVIDADES</a></div>
       <div class="clear"></div>
       <div>
-        <?
-          for ($i=0; $i<4; $i++){
+        <?php
+        $criteria = new CDbCriteria();
+        $criteria->order = 'idnovidade desc';
+        $criteria->addCondition("ativo = 1");
+        $criteria->addCondition("imagem <> '' ");
+        $novidades = Novidade::model()->findAll($criteria);
+        foreach($novidades as $novidade) {
         ?>
           <div class="colunas col-5 novidades_lista">
-            <div><a href="novidades_mostra.php"><img src="img/_del/novidades.png" width="280" height="200" class="imgfull rollover" alt=""/></a></div>
+            <div><a href="novidade/<?=$novidade->idnovidade?>/<?=Util::removerAcentos($novidade->titulo)?>"><img src="extranet/uploads/Novidade/<?=$novidade->imagem?>" width="280" height="200" class="imgfull rollover" alt="<?=$novidade->titulo?>"/></a></div>
             <div class="box">
-              <div class="categoria">Informações gerais</div>
-              <div class="titulos"><h3><a href="novidades_mostra.php">Recadastramento de CPF em andamento no RH</a></h3></div>
+              <div class="categoria"><?=$novidade->categoria?></div>
+              <div class="titulos"><h3><a href="novidade/<?=$novidade->idnovidade?>/<?=Util::removerAcentos($novidade->titulo)?>"><?=$novidade->titulo?></a></h3></div>
             </div>
           </div>
         <?

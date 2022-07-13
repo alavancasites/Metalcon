@@ -2,7 +2,7 @@
 <div class="menuButton">Menu</div>
 <div class="menuLinks">
   <a href="inicial" <?=(strpos($linkMenu,"inicial")!==false?"class='ativado'":"")?>>Home</a>
-  <a href="novidades" <?=(strpos($linkMenu,"novidades")!==false?"class='ativado'":"")?>>Novidades</a>
+  <a href="novidades" <?=(strpos($linkMenu,"novidade")!==false?"class='ativado'":"")?>>Novidades</a>
 <?php /*?>SISTEMA<?php */?>
   <a href="administrativo" <?=(strpos($linkMenu,"administrativo")!==false?"class='ativado'":"")?>>Administrativo</a>
   <a href="comercial" <?=(strpos($linkMenu,"comercial")!==false?"class='ativado'":"")?>>Comercial</a>

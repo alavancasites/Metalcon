@@ -99,7 +99,7 @@ return array(
 		),
 	),
 	'params'=>array(
-		'email_contato'=>'thyquevedo@gmail.com',
+		'email_ouvidoria'=>'thyquevedo@gmail.com',
 		'defaultPageSize' => 10,
 	),
 );

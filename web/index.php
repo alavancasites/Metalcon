@@ -1,6 +1,7 @@
 <?php 
 ini_set ("default_charset","");
-include("gzip/gzipHTML.php"); 
+include("gzip/gzipHTML.php");
+include_once("extranet/autoload.php");
 include_once("RequestManager.php");
 $rotas = array(
 	'/login'=> 'login.php',

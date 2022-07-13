@@ -13,49 +13,29 @@
         <h1 style="color: #555; font-size:16px; text-align:center; display:block;">Contato realizado pelo site</h1>
         <div style="margin-top:20px; padding:20px;">
           <table width="100%" border="0" cellspacing="0" cellpadding="4">
-            <?php /*?>
-		  <?
-			$array_departamento = array(
-			  1 => "Comercial", 
-			  2 => "Recursos Humanos", 
-			  3 => "Marketing", 
-			  4 => "Financeiro", 
-			  5 => "Outro"
-			);
-		  ?>
-			<table width="100%" border="0" cellspacing="0" cellpadding="4">
-			  <tr>
-				<td width="23%"><strong>Departamento:</strong></td>
-				<td width="77%"><? echo $array_departamento[$contato->departamento];  ?></td>
-			  </tr>
-              <tr>
-				<td><strong>Estado:</strong></td>
-				<td><?=htmlentities($contato->estado->nome);?></td>
-			  </tr>
-			  <tr>
-				<td><strong>Cidade:</strong></td>
-				<td><?=htmlentities($contato->cidade->nome);?></td>
-			  </tr>
-		  <?php */?>
             <tr class="fundo">
               <td width="23%"><strong>Nome:</strong></td>
-              <td width="77%"><?=htmlentities($contato->nome);?></td>
+              <td width="77%"><?=htmlentities($ouvidoria->nome);?></td>
             </tr>
             <tr>
-              <td><strong>E-mail:</strong></td>
-              <td><?=htmlentities($contato->email);?></td>
+              <td><strong>CPF:</strong></td>
+              <td><?=htmlentities($ouvidoria->cpf);?></td>
             </tr>
             <tr class="fundo">
-              <td><strong>Telefone:</strong></td>
-              <td><?=htmlentities($contato->telefone);?></td>
+              <td><strong>Data:</strong></td>
+              <td><?=htmlentities($ouvidoria->data);?></td>
             </tr>
             <tr>
+              <td><strong>Setor:</strong></td>
+              <td><?=htmlentities($ouvidoria->setor);?></td>
+            </tr>
+            <tr class="fundo">
               <td><strong>Assunto:</strong></td>
-              <td><?=htmlentities($contato->assunto);?></td>
+              <td><?=htmlentities($ouvidoria->assunto);?></td>
             </tr>
-            <tr class="fundo">
+            <tr>
               <td><strong>Mensagem</strong></td>
-              <td><?=htmlentities($contato->mensagem);?></td>
+              <td><?=htmlentities($ouvidoria->mensagem);?></td>
             </tr>
           </table>
         </div>

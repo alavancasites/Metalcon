@@ -1,0 +1,13 @@
+Options FollowSymLinks
+IndexIgnore */*
+
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !(\.gif|\.jpg|\.png)$ [NC]
+RewriteCond %{REQUEST_URI} !^(css|js|img|jquery)
+RewriteRule ^.*$ index.php
+
+#RewriteCond %{HTTPS} off
+#RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]

@@ -32,6 +32,32 @@
           <a href="<?=$this->createUrl('ouvidoria/index');?>"><i class="fa fa-lg fa-caret-right"></i><span>Ouvidoria</span></a>
         <?
           }
+          if ( Yii::app()->user->obj->group->temPermissaoAction( 'perfil', 'index' ) ) {
+        ?>
+          <a href="<?=$this->createUrl('perfil/index');?>"><i class="fa fa-lg fa-caret-right"></i><span>Perfil de acesso</span></a>
+        <?
+          }
+          if ( Yii::app()->user->obj->group->temPermissaoAction( 'usuario', 'index' ) ) {
+        ?>
+          <a href="<?=$this->createUrl('usuario/index');?>"><i class="fa fa-lg fa-caret-right"></i><span>Usuários</span></a>
+        <?
+          }
+          if ( Yii::app()->user->obj->group->temPermissaoAction( 'modulo', 'index' ) ) {
+        ?>
+          <a href="<?=$this->createUrl('modulo/index');?>"><i class="fa fa-lg fa-caret-right"></i><span>Módulos</span></a>
+        <?
+          }
+
+          if ( Yii::app()->user->obj->group->temPermissaoAction( 'moduloCategoria', 'index' ) ) {
+              $modulos = Modulo::model()->findAll(array('condition'=>"ativo = '1'", 'order'=>'posicao asc'));
+              if ($modulos) {
+                  foreach ($modulos as $modulo) {
+                      ?>
+                      <a href="<?=$this->createUrl('moduloCategoria/index', array('idmodulo'=>$modulo->idmodulo));?>"><i class="fa fa-lg fa-caret-right"></i><span><?=Util::formataTexto($modulo->nome)?></span></a>
+                      <?php
+                  }
+              }
+          }
         ?>
       </div>
       <div class="menu_suporte"> D&uacute;vidas ou suporte <a href="mailto:atendimento@alavanca.digital">atendimento@alavanca.digital</a> <a href="http://www.alavanca.digital" target="_blank">www.alavanca.digital</a> </div>

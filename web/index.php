@@ -1,4 +1,4 @@
-<?php 
+<?php
 ini_set ("default_charset","");
 include("gzip/gzipHTML.php");
 include_once("extranet/autoload.php");
@@ -7,7 +7,7 @@ $rotas = array(
 	'/login'=> 'login.php',
 	'/esqueci-minha-senha'=> 'esqueci_senha.php',
   /*PARA TESTES*/
-  '/administrativo'=> 'modulo.php',
+  '/administrativo'=> 'modulo_page.php',
   '/treinamento'=> 'modulo_lista.php',
   '/download'=> 'modulo_arquivos.php',
   /*FIM  TESTES*/

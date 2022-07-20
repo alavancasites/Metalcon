@@ -18,9 +18,9 @@
  * @property Perfil $perfil
  */
 abstract class BasePerfilAcesso extends GxActiveRecord {
-	
-    
-        
+
+
+
 	public static function model($className=__CLASS__) {
 		return parent::model($className);
 	}
@@ -30,7 +30,7 @@ abstract class BasePerfilAcesso extends GxActiveRecord {
 	}
 
 	public static function label($n = 1) {
-		return Yii::t('app', 'PerfilAcesso|PerfilAcessos', $n);
+		return Yii::t('app', 'Acesso|Acessos', $n);
 	}
 
 	public static function representingColumn() {

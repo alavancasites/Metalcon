@@ -2,11 +2,11 @@
 
 class PerfilController extends GxController {
 
-	
+
     public function getRepresentingFields(){
 		return Perfil::representingColumn();
 	}
-    
+
 	public function actionView($id) {
 		$this->render('view', array(
 			'model' => $this->loadModel($id, 'Perfil'),
@@ -15,11 +15,13 @@ class PerfilController extends GxController {
 
 	public function actionCreate() {
 		$model = new Perfil;
-        
+
 		if (isset($_POST['Perfil'])) {
 			$model->setAttributes($_POST['Perfil']);
 
+			$model->categorias = $_POST['Perfil']['categorias']?$_POST['Perfil']['categorias']:array();
 			if ($model->save()) {
+				$model->saveItens();
 				if (Yii::app()->getRequest()->getIsAjaxRequest())
 					Yii::app()->end();
 				else
@@ -39,7 +41,9 @@ class PerfilController extends GxController {
 		if (isset($_POST['Perfil'])) {
 			$model->setAttributes($_POST['Perfil']);
 
+			$model->categorias = $_POST['Perfil']['categorias']?$_POST['Perfil']['categorias']:array();
 			if ($model->save()) {
+				$model->saveItens();
                 $this->redirect($this->createUrlRel('view',array('id' => $model->idperfil,'success'=>'update')));
 			}
 		}
@@ -58,7 +62,7 @@ class PerfilController extends GxController {
 				Yii::app()->end();
 			}
 			else
-				$this->redirect($this->createUrlRel('index'));			
+				$this->redirect($this->createUrlRel('index'));
 		}
 		else{
 			$this->renderPartial("//site/delete_console", array(
@@ -72,7 +76,7 @@ class PerfilController extends GxController {
 		$model->update();
 		Yii::app()->request->redirect(Yii::app()->user->returnUrl);
 	}
-	
+
 	public function actionDesativar($id){
 		$model=$this->loadModel($id);
 		$model->ativo= 0;
@@ -90,31 +94,31 @@ class PerfilController extends GxController {
 
 	public function actionIndex() {
 		$criteria = new CDbCriteria;
-		
+
 		//Códgio de busca
 		if(isset($_GET['q'])){
 			$model = new Perfil();
 			$atributos = $model->tableSchema->columns;
-					
+
 			foreach($atributos as $att){
 				if(!$att->isPrimaryKey && !$att->isForeignKey)
 					$criteria->addCondition($att->name." like '%".$_GET['q']."%'", "OR");
 			}
 		}
-		
+
 		if(isset($_GET['o']) && isset($_GET['f']) ){
 			$criteria->order = $_GET['f']." ".$_GET['o'];
 		}
         else{
         	$criteria->order = 'idperfil desc';
         }
-		
+
 		if(count($this->rel_conditions) > 0){
 			foreach($this->rel_conditions as $field => $value){
 				$criteria->addCondition($field." = '".$value."'");
 			}
 		}
-		
+
 		$dataProvider = new CActiveDataProvider('Perfil', array(
             'criteria'=>$criteria,
 			'pagination' => array(
@@ -122,18 +126,18 @@ class PerfilController extends GxController {
 				'pageVar'=>'p',
 			),
     	));
-		
+
 		$this->render('index', array(
 			'dataProvider' => $dataProvider,
 			'model' => Perfil::model(),
 		));
 	}
-    
+
     public function afterAction($action){
 		Yii::app()->user->returnUrl = Yii::app()->request->requestUri;
 		return parent::afterAction($action);
 	}
-	
+
 	public function beforeAction($action){
 		/*
         if(is_numeric($_GET['idlinha'])){
@@ -150,7 +154,7 @@ class PerfilController extends GxController {
 			}
 		}
         */
-        
+
 		return parent::beforeAction($action);
 	}
 

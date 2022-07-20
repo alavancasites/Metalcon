@@ -23,9 +23,10 @@
  * @property UsuarioRecuperasenha[] $usuarioRecuperasenhas
  */
 abstract class BaseUsuario extends GxActiveRecord {
-	
-    
-        
+
+	public $senha_confirma;
+
+
 	public static function model($className=__CLASS__) {
 		return parent::model($className);
 	}
@@ -44,12 +45,21 @@ abstract class BaseUsuario extends GxActiveRecord {
 
 	public function rules() {
 		return array(
-			array('idperfil', 'required'),
+			array('idperfil, nome, cpf', 'required'),
 			array('idperfil', 'numerical', 'integerOnly'=>true),
 			array('nome, cpf, email, telefone, senha', 'length', 'max'=>100),
 			array('ativo', 'length', 'max'=>1),
 			array('nome, cpf, email, telefone, senha, ativo', 'default', 'setOnEmpty' => true, 'value' => null),
 			array('idusuario, idperfil, nome, cpf, email, telefone, senha, ativo', 'safe', 'on'=>'search'),
+			//Campos obrigatórios
+			array('senha,senha_confirma', 'required', 'on'=>'insert'),
+
+			array('cpf', 'unique',  'criteria' => array(
+				'condition' => "idusuario != '".$this->idusuario."'",
+			)),
+
+			//Campos que devem ser iguais
+			array('senha','compare', 'compareAttribute'=>'senha_confirma', 'message'=>"As senhas informadas são diferentes"),
 		);
 	}
 
@@ -71,10 +81,11 @@ abstract class BaseUsuario extends GxActiveRecord {
 			'idusuario' => Yii::t('app', 'Idusuario'),
 			'idperfil' => null,
 			'nome' => Yii::t('app', 'Nome'),
-			'cpf' => Yii::t('app', 'Cpf'),
-			'email' => Yii::t('app', 'Email'),
+			'cpf' => Yii::t('app', 'CPF'),
+			'email' => Yii::t('app', 'E-mail'),
 			'telefone' => Yii::t('app', 'Telefone'),
 			'senha' => Yii::t('app', 'Senha'),
+			'senha_confirma' => Yii::t('app', 'Confirme a Senha'),
 			'ativo' => Yii::t('app', 'Ativo'),
 			'moduloDownloads' => null,
 			'perfil' => null,

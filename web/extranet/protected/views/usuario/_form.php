@@ -1,5 +1,5 @@
 <div class="form">
-	
+
 	<?php $form = $this->beginWidget('GxActiveForm', array(
         'id' => 'usuario-form',
         'enableAjaxValidation' => false,
@@ -9,106 +9,117 @@
 			'action' => $this->createUrlRel($this->action->id),
         )
     ));
-    ?> 
+    ?>
 
-	<? 
+	<?
     $this->renderPartial("//layouts/erros",array(
         'model' => $model,
     ));
     ?>
-        
-        	    	    
+
+
     <div class="formSep">
         <dl class="dl-horizontal">
           <dt><?php echo $form->labelEx($model,'idperfil',array('class'=>'control-label')); ?>
 </dt>
           <dd>
-		  	<?php echo $form->dropDownList($model, 'idperfil', GxHtml::listDataEx(Perfil::model()->findAllAttributes(null, true)), array('class' => 'input-xxlarge','empty'=>'Selecione...')); ?>                 
-		 	 
+		  	<?php echo $form->dropDownList($model, 'idperfil', GxHtml::listDataEx(Perfil::model()->findAllAttributes(null, true)), array('class' => 'input-xxlarge','empty'=>'Selecione...')); ?>
+
       	</dd>
        </dl>
     </div>
     <!-- row -->
-        	    
+
     <div class="formSep">
         <dl class="dl-horizontal">
           <dt><?php echo $form->labelEx($model,'nome',array('class'=>'control-label')); ?>
 </dt>
           <dd>
-		  	<?php echo $form->textField($model, 'nome', array('maxlength' => 100,'class' => 'input-xxlarge')); ?>                 
-		 	 
+		  	<?php echo $form->textField($model, 'nome', array('maxlength' => 100,'class' => 'input-xxlarge')); ?>
+
       	</dd>
        </dl>
     </div>
     <!-- row -->
-        	    
+
     <div class="formSep">
         <dl class="dl-horizontal">
           <dt><?php echo $form->labelEx($model,'cpf',array('class'=>'control-label')); ?>
 </dt>
           <dd>
-		  	<?php echo $form->textField($model, 'cpf', array('maxlength' => 100,'class' => 'input-xxlarge')); ?>                 
-		 	 
+		  	<?php echo $form->textField($model, 'cpf', array('maxlength' => 100,'class' => 'input-xxlarge')); ?>
+
       	</dd>
        </dl>
     </div>
     <!-- row -->
-        	    
+
     <div class="formSep">
         <dl class="dl-horizontal">
           <dt><?php echo $form->labelEx($model,'email',array('class'=>'control-label')); ?>
 </dt>
           <dd>
-		  	<?php echo $form->textField($model, 'email', array('maxlength' => 100,'class' => 'input-xxlarge')); ?>                 
-		 	 
+		  	<?php echo $form->textField($model, 'email', array('maxlength' => 100,'class' => 'input-xxlarge')); ?>
+
       	</dd>
        </dl>
     </div>
     <!-- row -->
-        	    
+
     <div class="formSep">
         <dl class="dl-horizontal">
           <dt><?php echo $form->labelEx($model,'telefone',array('class'=>'control-label')); ?>
 </dt>
           <dd>
-		  	<?php echo $form->textField($model, 'telefone', array('maxlength' => 100,'class' => 'input-xxlarge')); ?>                 
-		 	 
+		  	<?php echo $form->textField($model, 'telefone', array('maxlength' => 100,'class' => 'input-xxlarge')); ?>
+
       	</dd>
        </dl>
     </div>
     <!-- row -->
-        	    
+
     <div class="formSep">
         <dl class="dl-horizontal">
           <dt><?php echo $form->labelEx($model,'senha',array('class'=>'control-label')); ?>
 </dt>
           <dd>
-		  	<?php echo $form->textField($model, 'senha', array('maxlength' => 100,'class' => 'input-xxlarge')); ?>                 
-		 	 
+		  	<?php echo $form->passwordField($model, 'senha', array('value' => '','class' => 'input-xxlarge')); ?>
+
       	</dd>
        </dl>
     </div>
     <!-- row -->
-        	    
+    <div class="formSep">
+        <dl class="dl-horizontal">
+          <dt><?php echo $form->labelEx($model,'senha_confirma',array('class'=>'control-label')); ?>
+</dt>
+          <dd>
+		  	<?php echo $form->passwordField($model, 'senha_confirma', array('value' => '','class' => 'input-xxlarge')); ?>                 
+
+      	</dd>
+       </dl>
+    </div>
+    <!-- row -->
+
     <div class="formSep">
         <dl class="dl-horizontal">
           <dt><?php echo $form->labelEx($model,'ativo',array('class'=>'control-label')); ?>
 </dt>
           <dd>
-		  	<?php echo $form->checkBox($model, 'ativo'); ?>                 
-		 	 
+		  	<?php echo $form->checkBox($model, 'ativo'); ?>
+
       	</dd>
        </dl>
     </div>
     <!-- row -->
-            
-    
-   
+
+
+
    <div class="formSep">
       <dl class="dl-horizontal">
           <dt>&nbsp;</dt>
           <dd>
-          
+
           <button type="submit" class="btn">
             <?
             if($this->action->id == 'create'){
@@ -136,15 +147,15 @@
                 <a class="btn btn-delete" href="<?php echo $this->createUrlRel('delete',array('id'=>$model->idusuario));?>" style="margin-left:30px;"><i class="icon-trash"></i> Excluir</a>
                 <?
             }
-            ?>  
+            ?>
         </dd>
        </dl>
    </div>
-   
-    
-    <? 
-	$this->endWidget(); 
+
+
+    <?
+	$this->endWidget();
 	?>
-	
+
 </div>
 <!-- form -->

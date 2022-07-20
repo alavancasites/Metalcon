@@ -17,14 +17,14 @@ if($this->hasRel()){
           </div>
           <div class="w-box-content">
             <div  class="w-box-content-busca">
-				<? 
+				<?
                 $this->renderPartial("//layouts/busca",array(
                     'button' => (Yii::app()->user->obj->group->temPermissaoAction($this->id,'create')) ? Yii::t('app','Cadastrar') : NULL,
                     'controller' => $this->id,
                 ));
                 ?>            </div>
-			<? 
-            if(is_array($dataProvider->data) && count($dataProvider->data) > 0){	
+			<?
+            if(is_array($dataProvider->data) && count($dataProvider->data) > 0){
                 ?>                <table class="table table-hover">
                 	<thead>
                     	<tr>
@@ -42,20 +42,24 @@ if($this->hasRel()){
 										$icon = "fa-sort-down";
 									}
 								}
-								?>								<th>
+								?>
+								<th>
                                 	<a class="btn-link" href="<?php echo $this->createUrlRel('index',array_merge($_GET,array('f'=>$field,'o'=>$ordem)));?>">
-										<i class="fa <?=$icon;?>"></i> <?=htmlentities($model->getAttributeLabel($field));?>                                    </a>
+										<i class="fa <?=$icon;?>"></i> <?=htmlentities($model->getAttributeLabel($field));?>
+									</a>
 								</th>
 								<?
 							}
-							?>                        </tr>
+							?>
+							<th></th>
+						</tr>
                     </thead>
                 <?
                 foreach($dataProvider->data as $data){
 					$this->renderPartial('_view',array('data'=>$data));
 				}
                 ?>                </table>
-                <? 
+                <?
 				$this->renderPartial("//layouts/paginacao",array(
 					'pagination' => $dataProvider->pagination,
 				));

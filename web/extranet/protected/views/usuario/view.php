@@ -16,12 +16,12 @@ $this->breadcrumbs[] = Yii::t('app','Visualizar');
             <h4>Visualizar</h4>
           </div>
           <div class="w-box-content">
-          
-		  <? 
+
+		  <?
           $this->renderPartial("//layouts/sucesso",array(
               'success' => $_GET['success'],
           ));
-          ?>      
+          ?>
         <div class="formSep">
           <dl class="dl-horizontal">
             <dt><?=Util::formataTexto($model->getAttributeLabel('idperfil'));?></dt>
@@ -55,7 +55,7 @@ $this->breadcrumbs[] = Yii::t('app','Visualizar');
         <div class="formSep">
           <dl class="dl-horizontal">
             <dt><?=Util::formataTexto($model->getAttributeLabel('senha'));?></dt>
-            <dd><?=Util::formataTexto($model->senha)?></dd>
+            <dd> <em>Senha criptografada</em> </dd>
           </dl>
         </div>
         <div class="formSep">
@@ -64,8 +64,8 @@ $this->breadcrumbs[] = Yii::t('app','Visualizar');
             <dd><?=Util::formataTexto($model->ativo ? 'Sim' : 'Não')?></dd>
           </dl>
         </div>
-     
-     
+
+
 
 	<?
 	if(Yii::app()->user->obj->group->temPermissaoAction('modulodownload','index')){
@@ -123,8 +123,8 @@ $this->breadcrumbs[] = Yii::t('app','Visualizar');
 		<?
     }
 	?>
-     
-     
+
+
          <div class="formSep">
               <dl class="dl-horizontal">
                   <dt>&nbsp;</dt>
@@ -135,7 +135,7 @@ $this->breadcrumbs[] = Yii::t('app','Visualizar');
                         <a class="btn" href="<?php echo $this->createUrlRel('update',array('id'=>$model->idusuario));?>"><i class="icon-edit "></i> Editar</a>
                         <?
                     }
-                    ?>          
+                    ?>
                     <?
                     if(Yii::app()->user->obj->group->temPermissaoAction($this->id,'index')){
                         ?>
@@ -149,11 +149,11 @@ $this->breadcrumbs[] = Yii::t('app','Visualizar');
                         <a class="btn btn-delete" href="<?php echo $this->createUrlRel('delete',array('id'=>$model->idusuario));?>" style="margin-left:30px;"><i class="icon-trash"></i> Excluir</a>
                         <?
                     }
-                    ?>           
+                    ?>
                   </dd>
                </dl>
            </div>
-          
+
 		</div>
       </div>
   </div>

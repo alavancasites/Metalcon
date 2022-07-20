@@ -17,9 +17,9 @@
  * @property Usuario[] $usuarios
  */
 abstract class BasePerfil extends GxActiveRecord {
-	
-    
-        
+
+    public $categorias;
+
 	public static function model($className=__CLASS__) {
 		return parent::model($className);
 	}

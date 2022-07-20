@@ -46,6 +46,7 @@ abstract class BaseUsuario extends GxActiveRecord {
 	public function rules() {
 		return array(
 			array('idperfil, nome, cpf', 'required'),
+			array('email', 'email'),
 			array('idperfil', 'numerical', 'integerOnly'=>true),
 			array('nome, cpf, email, telefone, senha', 'length', 'max'=>100),
 			array('ativo', 'length', 'max'=>1),

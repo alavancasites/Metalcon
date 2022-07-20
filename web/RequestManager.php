@@ -1,15 +1,32 @@
-<?class RequestManager{
+<?
+class RequestManager{
+
 	private $_scriptUrl;
 	private $_baseUrl;
 	private $_hostInfo;
 	private $_routes;
 	public $default_route = 'inicial';
+	public $globals;
+
+	public function RequestManager(){
+		if(!empty($_GET['ajax_nocache'])){
+			Utf8::decode($_POST);
+			Utf8::decode($_GET);
+		}
+	}
+
 	public function getRoutes(){
 		return $this->_routes;
 	}
 	public function setRoutes($routes){
 		 $this->_routes = $routes;
 	}
+
+	public function getCurrentRoute(){
+		$request_array = explode('?',$_SERVER['REQUEST_URI']);
+		return str_replace($this->getBaseUrl().'/', '',$request_array[0]);
+	}
+
 	public function getScriptUrl(){
 		if($this->_scriptUrl===null)
 		{
@@ -29,16 +46,24 @@
 		}
 		return $this->_scriptUrl;
 	}
-	public function getBaseUrl($absolute=false){
-		if($this->_baseUrl===null)
-			$this->_baseUrl=rtrim(dirname($this->getScriptUrl()),'\\/');
-		return $absolute ? $this->getHostInfo() . $this->_baseUrl : $this->_baseUrl;
+
+	public function getBaseUrl($absolute = false){
+
+		if($absolute){
+			$url .= $this->getHostInfo();
+		}
+
+		$url .= rtrim(dirname($this->getScriptUrl()),'\\/');
+
+		return $url;
 	}
+
 	public function getUri(){
 		$dir = explode("/",$_SERVER['PHP_SELF']);
 		array_pop($dir);
 		return str_replace(implode("/",$dir),"",current(explode("?",$_SERVER['REQUEST_URI'])));
 	}
+
 	public function getHostInfo($schema=''){
 		if($this->_hostInfo===null)
 		{
@@ -61,38 +86,41 @@
 			$secure=$this->getIsSecureConnection();
 			if($secure && $schema==='https' || !$secure && $schema==='http')
 				return $this->_hostInfo;
-	
+
 			$port=$schema==='https' ? $this->getSecurePort() : $this->getPort();
 			if($port!==80 && $schema==='http' || $port!==443 && $schema==='https')
 				$port=':'.$port;
 			else
 				$port='';
-	
+
 			$pos=strpos($this->_hostInfo,':');
 			return $schema.substr($this->_hostInfo,$pos,strcspn($this->_hostInfo,':',$pos+1)+1).$port;
 		}
 		else
 			return $this->_hostInfo;
 	}
+
 	public function getIsSecureConnection(){
 		return !empty($_SERVER['HTTPS']) && strcasecmp($_SERVER['HTTPS'],'off');
 	}
+
 	public function defineRoute(){
-		
-		
+
+
 		define('URI',$this->getUri());
-		
+
 		$rotas = $this->getRoutes();
-		
+
+		$get = json_decode( json_encode($_GET), true);
+
 		foreach($rotas as $pcre=>$app){
-			
+
 			if(preg_match("@^{$pcre}$@",URI,$get)){
-				
-				foreach($get as $ind => $valor){
-					if(!isset($_GET[$ind]))
-						$_GET[$ind] = $valor;
-				} 
-				
+
+				unset($get[0]);
+
+				$_GET = array_merge($get,$_GET);
+
 				if(file_exists($app)){
 					return array(
 						'status' => true,
@@ -101,7 +129,7 @@
 				}
 				else
 					$error = 'arquivo inexistente';
-				
+
 			}
 			else{
 				$error = 'rota inexistente';
@@ -112,17 +140,38 @@
 			'error' => $error,
 		);
 	}
+
 	public function run($routes){
-		
 		$this->setRoutes($routes);
 		$return = $this->defineRoute();
-		
-		if($return['status']){
-			require_once($return['file']);
+
+
+
+		$require_file = "404.php";
+		if($return['status'] && is_file($return['file'])){
+			$require_file = $return['file'];
+		}
+
+		if(is_array($this->globals)){
+			foreach($this->globals as $name => $global){
+				$$name = $global;
+			}
+		}
+
+		if(!empty($_GET['ajax_nocache'])){
+			ob_start();
+
+			require_once($require_file);
+			$html = ob_get_clean();
+			Utf8::encode($html);
+			echo $html;
 			exit;
 		}
-		header('location: '.$this->getBaseUrl().DIRECTORY_SEPARATOR.$this->default_route);
+
+		require_once($require_file);
 		exit;
+
 	}
+
 }
 ?>

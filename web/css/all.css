@@ -63,6 +63,7 @@ font-family: 'Signika', sans-serif;
 .rollover { opacity: 1;transition: all .3s linear }
 .rollover:hover { opacity: .7 }
 .margin0 { margin: 0!important }
+.margin20 { margin-top: 20px!important }
 body { font-family: 'Raleway', sans-serif; color: #666; font-size: 13px; overflow-x: hidden;}
 a { text-decoration: none; color: #666;transition: all .3s linear }
 a:hover { text-decoration: underline; color: #333 }
@@ -118,9 +119,9 @@ form select { cursor: pointer; }
 #login button { line-height: 44px; display: block; font-size: 13px; background-color: var(--amarelo); color: var(--azul); border:1px solid var(--amarelo); padding: 0px 40px; float: none; margin:30px auto 0px auto; position: relative; font-weight: 600;}
 #login button:hover { background-color: var(--azul); color: var(--amarelo);}
 #login .separador { height: 1px; background-color: #FFF; margin:30px 0px }
-#login .form_esqueci button {background-color: var(--azul); color: var(--amarelo);} 
+#login .form_esqueci button {background-color: var(--azul); color: var(--amarelo);}
 #login .form_esqueci button:hover { background-color: var(--amarelo); color: var(--azul); }
-  
+
 #esqueci { width: 340px; height: 200px; background-color: var(--azul); padding: 55px 60px; color: #FFF; position: absolute; top: 50%; left: 50%; margin-top: -100px; margin-left: -170px;}
 #esqueci .form_esqueci { margin-top: 50px;}
 #esqueci input {margin-top: 20px;}

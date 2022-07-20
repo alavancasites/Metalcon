@@ -135,4 +135,25 @@ class Util{
         return $string;
     }
 
+	public static function redirect($prox_pagina){
+		$url = Yii::app()->baseUrl.'/'.$prox_pagina;
+
+		if(strpos($prox_pagina, 'http://')!==FALSE||strpos($prox_pagina, 'https://')!==FALSE){
+			$url = $prox_pagina;
+			?>
+			<script language="JavaScript">
+			var win = window.open( '<?= $url ?>', '_blank');
+			win.focus();
+			</script>
+			<?php
+			return false;
+		}
+		?>
+		<script language="JavaScript">
+		location.href = '<?= $url ?>';
+		</script>
+		<?php
+		exit;
+	}
+
 }

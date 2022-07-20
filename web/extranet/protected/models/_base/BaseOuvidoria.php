@@ -21,9 +21,9 @@
  *
  */
 abstract class BaseOuvidoria extends GxActiveRecord {
-	
-    
-        
+
+
+
 	public static function model($className=__CLASS__) {
 		return parent::model($className);
 	}
@@ -42,6 +42,7 @@ abstract class BaseOuvidoria extends GxActiveRecord {
 
 	public function rules() {
 		return array(
+			array('setor, assunto, mensagem', 'required'),
 			array('ip, nome, cpf, setor, assunto', 'length', 'max'=>100),
 			array('ativo', 'length', 'max'=>1),
 			array('data, mensagem', 'safe'),
@@ -52,6 +53,7 @@ abstract class BaseOuvidoria extends GxActiveRecord {
 
 	public function relations() {
 		return array(
+			'setorrel' => array(self::BELONGS_TO, 'Modulo', 'setor'),
 		);
 	}
 
@@ -97,7 +99,7 @@ abstract class BaseOuvidoria extends GxActiveRecord {
 		$message->setBody(array('ouvidoria' => $this),'text/html','latin1');
 		$message->subject = 'Ouvidoria'.' - '.date('d/m/Y H:i:s');
 		$message->addTo(Yii::app()->params['email_ouvidoria']);
-		$message->setReplyTo($this->email);
+		// $message->setReplyTo($this->email);
 		$message->setFrom(array('noreply@popupdigital.com.br'  => Yii::app()->name));
 		Yii::app()->mail->send($message);
 	}
